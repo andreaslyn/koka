@@ -20,7 +20,7 @@ RUN apt-get install -y --no-install-recommends build-essential tar
 RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /build
 RUN curl -sSL https://get.haskellstack.org/ | sh
-RUN git clone --recursive https://github.com/koka-lang/koka -b v2.1.1
+RUN git clone --recursive https://github.com/andreaslyn/koka -b pythagorean-nat
 WORKDIR /build/koka
 RUN stack build
 RUN stack exec koka -- util/bundle -- --postfix=docker
@@ -37,8 +37,8 @@ RUN apt-get install -y --no-install-recommends software-properties-common
 RUN add-apt-repository ppa:linuxuprising/java
 RUN echo debconf shared/accepted-oracle-license-v1-2 select true | debconf-set-selections
 RUN echo debconf shared/accepted-oracle-license-v1-2 seen true | debconf-set-selections
-RUN apt-get install -y --no-install-recommends oracle-java15-installer
-RUN apt-get install -y --no-install-recommends oracle-java15-set-default
+RUN apt-get install -y --no-install-recommends oracle-java16-installer
+RUN apt-get install -y --no-install-recommends oracle-java16-set-default
 RUN apt-get install -y --no-install-recommends libedit2 libz3-dev
 RUN apt-get install -y --no-install-recommends time
 WORKDIR /build/koka/test/bench
@@ -46,4 +46,4 @@ RUN mkdir build
 WORKDIR /build/koka/test/bench/build
 RUN cmake .. -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build .
-RUN echo "ulimit -s unlimited" >> ~/.bashrc 
+RUN echo "ulimit -s unlimited" >> ~/.bashrc
